@@ -1,0 +1,10 @@
+﻿    <div id="redirectPage" data-role="page" data-theme="a" style="height:100%">
+        <script type="text/javascript">
+            $("#redirectPage").on('pageshow', function () {
+                var redirectUrl = getUrlVars()["redirectUrl"];
+                if (redirectUrl != undefined) {
+                    $.mobile.changePage(redirectUrl);
+                }
+            })
+        </script>
+    </div>

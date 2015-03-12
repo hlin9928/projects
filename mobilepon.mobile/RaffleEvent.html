@@ -1,0 +1,79 @@
+﻿<div id="raffleEventPage" data-role="page" data-theme="a">
+   <div class="extenalPageContent">
+     <script id="tplStudentInfo" type="text/x-handlebars-template">
+        <form action="index.html" method="post" id="registerForm">
+            <div data-role="fieldcontain">
+            <label for="SchoolName">School Name: </label>
+            <input type="text" name="SchoolName"  id="SchoolName" class="required" value="{{SchoolName}}" /> 
+            </div>	
+            <div data-role="fieldcontain">
+            <label for="StudentID">Student ID</label>
+            <input type="text" name="StudentID"  id="Password"  class="StudentID" value="{{StudentID}}" /> 
+            </div>	
+            <div data-role="fieldcontain">
+            <label for="FirstName"> First Name: </label>
+            <input type="text" name="FirstName"  id="FirstName"  class="required" value="{{FirstName}}" /> 
+            </div>	
+            <div data-role="fieldcontain">
+            <label for="LastName"> Last Name: </label>
+            <input type="text" name="LastName"  id="LastName"  class="required" value="{{LastName}}" /> 
+            </div>
+            <div data-role="fieldcontain">
+            <label for="Phone">Phone #: </label>
+            <input type="text" name="Phone"  id="Phone"  class="required" value="{{Phone}}" /> 
+            </div>
+            <div data-role="fieldcontain">
+            <label for="Email">Notifying Email</label>
+            <input type="text" name="Email"  id="Email"  class="required email" value="{{Email}}" /> 
+            </div>
+            <div data-role="fieldcontain">
+            <input type="submit" name="" value="Scan Receipt" data-theme="b" style="float:right" />
+            </div>
+        </form>	        
+      </script>  
+	</div>	
+
+    <script type="text/javascript">
+        ApplyMasterPage("#raffleEventPage");
+        $("#raffleEventPage").on('pageshow', function () {
+            LoadMasterPage();
+
+            var jsonUrl = ServiceUrlRoot + "GetStudentInfo.ashx?customerID=" + g_Application.UserID;
+            $.getJSON(jsonUrl, function (studentInfo) {
+                var tplName = "#tplStudentInfo";
+                var template = Handlebars.compile($(tplName).html());
+                $("#raffleEventPage div.sharedBodyPlaceHolder").append(template(studentInfo));
+
+                $("#registerForm").trigger("create");
+
+                $("#registerForm").validate({
+                    errorPlacement: function (error, element) {
+                        error.insertAfter(element);
+                    }
+                })
+                $('#registerForm').on('submit', function (e) {
+                    e.preventDefault();
+                    var clientID = getUrlVars()["clientID"]
+                    if (!$('#registerForm').valid())
+                        return false;
+                    var vals = $("#registerForm").serialize();
+
+                    vals = vals + "&CustomerID=" + g_Application.UserID;
+                    $.post(WebsiteRoot + "Account/RegisterStudent", vals, function (data) {
+                        if (data.JSonMessage != null) {
+                            alert(data.JSonMessage);
+                            return false;
+                        }
+                    });
+
+                    ScanClientReceipt(clientID, null,null);
+
+                });
+            });
+            LoadMasterPage();
+        })
+        function onScanSucess() {
+            $.mobile.back();
+        }
+    </script>   	 
+</div>

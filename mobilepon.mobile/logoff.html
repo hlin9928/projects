@@ -1,0 +1,30 @@
+﻿<div id="logOffDetailPage" data-role="page" data-theme="a">
+    <script type="text/javascript">
+        $("#logOffDetailPage").on('pageshow', function () {
+            if (g_Application.UserType == "Facebook") {
+                //FB.getLoginStatus(function (response) {
+                //    FB.logout(function (logoutresponse) {
+                //        g_Application.UserType = "";
+                //    });
+                //});
+
+                facebookConnectPlugin.logout(
+                    function onLogoutSucess() {
+                        ApplicationAlertWithTitle("You are log off from facebook sucessfully.","Logoff facebook");
+                        logoff();
+                        window.location.href = "index.html";
+                    }
+                    , function onLogoutError() {
+                        alert("failure");
+                    }
+                )
+            }
+            else {
+                logoff();
+                window.location.href = "index.html";
+            }
+            //$.mobile.changePage("index.html");
+        })     
+    </script>
+
+</div>

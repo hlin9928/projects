@@ -1,0 +1,47 @@
+﻿<div id="RafferWinnersPage" data-role="page" data-theme="a">
+    <div class="extenalPageContent">
+        <h1>Raffle Winner History</h1>
+        <div id="idRafferWinners"></div>
+        <script id="tplRafferWinners" type="text/x-handlebars-template">
+            <ul data-role="listview" data-inset="true" data-divider-theme="d" id="raffleWinnerHistory">
+             {{#.}}
+                <li>
+                    <h2>{{RaffleMonth}} Winners</h2>
+	                <div class="visitHistory">
+                        {{#RaffleMonthLevels}}
+                            <div>{{RaffleLevel}}: {{CustomerName}}</div>
+                        {{/RaffleMonthLevels}}
+                    </div>
+                </li>
+             {{/.}}
+            </ul>
+        </script>
+    </div>
+
+    <script type="text/javascript">
+        ApplyMasterPage("#RafferWinnersPage");
+        $("#RafferWinnersPage").on('pageshow', function () {
+            if (g_Application.UserName == "") {
+                $.mobile.changePage("login.html");
+            }
+            $.mobile.loading('show');
+            var client = g_Client.GetCurrentClient();
+            $.getJSON(ServiceUrlRoot + "GetRaffleWinners.ashx?clientID=" + client.ClientID, DisplayRafferWinnersHistory);
+            LoadMasterPage();
+        })
+
+        function DisplayRafferWinnersHistory(rafferWinnerList) {
+            var tplName = "#tplRafferWinners";
+            var template = Handlebars.compile($(tplName).html());
+            var templateResult = template(rafferWinnerList);
+            $parentObject = $("#idRafferWinners");
+            $parentObject.empty();
+            $parentObject.append(templateResult);
+
+            $('#raffleWinnerHistory').listview().listview('refresh');
+            $.mobile.loading('hide');
+        }
+
+
+    </script>
+</div>

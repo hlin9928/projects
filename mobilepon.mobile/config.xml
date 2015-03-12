@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.mobilepon" version="2.0.4" xmlns="http://www.w3.org/ns/widgets" versionCode="7" xmlns:gap="http://phonegap.com/ns/1.0">
+  <name>Mobilepon</name>
+
+  <description>
+    Mobilepon
+  </description>
+
+  <author href="http://www.mobilepon.com" email="webadmin@mobilepon.com">
+    Mobilepon
+  </author>
+  
+  <access origin="*" />
+
+  <icon src="images/appicon76x76.png" />
+  <content src="index.html" />
+
+  <platform name="android">
+    <icon src="images/Adr36x36.png" density="ldpi" />
+    <icon src="images/Adr48x48.png" density="mdpi" />
+    <icon src="images/Adr72x72.png" density="hdpi" />
+    <icon src="images/Adr96x96.png" density="xhdpi" />
+    <icon src="images/Adr144x144.png" density="xxhdpi" />    
+  </platform>
+  
+  <gap:splash src="images/Adr426x320.png" gap:platform="android" gap:density="ldpi" />
+  <gap:splash src="images/Adr470x320.png" gap:platform="android" gap:density="mdpi" />
+  <gap:splash src="images/Adr640x480.png" gap:platform="android" gap:density="hdpi" />
+  <gap:splash src="images/Adr960x720.png" gap:platform="android" gap:density="xhdpi" />
+ 
+  <icon src="images/appicon57x57.png" gap:platform="ios" width="57" height="57" />
+  <icon src="images/Adr72x72.png" gap:platform="ios" width="72" height="72" />
+  <icon src="images/appicon76x76.png" gap:platform="ios" width="76" height="76" />
+  <icon src="images/appicon120x120.png" gap:platform="ios" width="120" height="120" />
+  <icon src="images/appicon152x152.png" gap:platform="ios" width="152" height="152" />
+  <icon src="images/appicon180x180.png" gap:platform="ios" width="180" height="180" />
+
+  <gap:splash src="images/ios640x960.png" gap:platform="ios" width="640" height="960" />
+  <gap:splash src="images/ios640x1136.png" gap:platform="ios" width="640" height="1136" />
+  <gap:splash src="images/ios750x1334.png" gap:platform="ios" width="750" height="1334" />
+  <gap:splash src="images/ios768x1024.png" gap:platform="ios" width="768" height="1024" />
+  <gap:splash src="images/ios1242x2208.png" gap:platform="ios" width="1242" height="2208" />  
+  <gap:splash src="images/ios1536x2048.png" gap:platform="ios" width="1536" height="2048" />
+
+
+
+
+  <!--<gap:splash src="images/Adr720x960.png" gap:platform="android" gap:qualifier="ldpi" />
+  <gap:splash src="images/Adr720x960.png" gap:platform="android" gap:qualifier="ldpi" />-->
+
+  <!--<gap:splash src="mdpi.png" gap:platform="android" gap:qualifier="mdpi" />
+  <gap:splash src="hdpi.png" gap:platform="android" gap:qualifier="hdpi" />
+  <gap:splash src="xhdpi.png" gap:platform="android" gap:qualifier="xhdpi" />
+  <gap:splash src="fr-xhdpi.png" gap:platform="android" gap:qualifier="fr-xhdpi" />
+  <gap:splash src="portrait-xxhdpi.png" gap:platform="android" gap:qualifier="port-xxhdpi" />
+  <gap:splash src="landscape-xxhdpi.png" gap:platform="android" gap:qualifier="land-xxhdpi" />-->
+ 
+ 
+  <!--<gap:platform name="android" />-->
+  <gap:plugin name="org.apache.cordova.dialogs" version="0.2.10" />
+  <gap:plugin name="org.apache.cordova.camera" version="0.2.9" />
+  <!--<gap:plugin name="org.apache.cordova.contacts" version="0.2.11" />-->
+  <!--<gap:plugin name="com.phonegap.plugins.barcodescanner" version="1.1.0" />-->
+  <gap:plugin name="com.phonegap.plugins.barcodescanner" version="2.0.0" /> 
+  <gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
+  <gap:plugin name="org.apache.cordova.core.geolocation" />  
+  <!--<gap:plugin name="org.apache.cordova.device" version="0.2.12" />-->
+  <gap:plugin name="com.phonegap.plugin.statusbar" version="1.1.0" />
+  <gap:plugin name="com.phonegap.plugins.childbrowser" version="5.0.0" />  
+  <gap:plugin name="org.apache.cordova.InAppBrowser" />  
+  
+  <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />  
+  
+  <gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.8.0">
+      <param name="APP_ID" value="623483871095061" />
+      <param name="APP_NAME" value="Mobilepon" />
+  </gap:plugin>
+    
+    <gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance" overwrite="true">
+      <false/>
+  </gap:config-file>
+  <feature name="Geolocation">
+    <param name="ios-package" value="CDVLocation" />
+  </feature>
+
+  <feature name="InAppBrowser">
+    <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    <param name="ios-package" value="CDVInAppBrowser" />
+  </feature>
+  <preference name="permissions" value="none"/>
+  <feature name="http://api.phonegap.com/1.0/camera"/>
+  <!--<feature name="http://api.phonegap.com/1.0/contacts"/>
+  <feature name="http://api.phonegap.com/1.0/file"/>-->
+  <feature name="http://api.phonegap.com/1.0/geolocation"/>
+  <!--<feature name="http://api.phonegap.com/1.0/media"/>-->
+  <feature name="http://api.phonegap.com/1.0/network"/>
+  <!--<feature name="http://api.phonegap.com/1.0/notification"/>-->
+  
+  <preference name="phonegap-version" value="3.5.0" /> 
+  <preference name="orientation" value="portrait" />  
+  <preference name="fullscreen" value="false" />
+  
+  <preference name="target-device" value="universal" />  
+  <!--<preference name="target-device" value="handset" />-->   
+  <preference name="prerendered-icon" value="true" /> 
+  <preference name="detect-data-types" value="true" />
+  <preference name="exit-on-suspend" value="false" />  
+  
+  <preference name="android-minSdkVersion" value="7" />
+  <preference name="android-targetSdkVersion" value="12" />
+
+  <preference name="ios-statusbarstyle" value="black-opaque" />
+  <preference name="StatusBarOverlaysWebView" value="false" />  
+  <preference name="stay-in-webview" value="true" />  
+  <!--<preference name="splash-screen-duration" value="5000"/>   
+  
+  <preference name="KeyboardDisplayRequiresUserAction" value="true" />
+  <preference name="SuppressesIncrementalRendering" value="false" />
+  <preference name="UIWebViewBounce" value="true" />
+  <preference name="TopActivityIndicator" value="gray" />
+  <preference name="EnableLocation" value="false" />
+  <preference name="EnableViewportScale" value="true" />
+  <preference name="AutoHideSplashScreen" value="true" />
+  <preference name="ShowSplashScreenSpinner" value="true" />
+  <preference name="MediaPlaybackRequiresUserAction" value="false" />
+  <preference name="AllowInlineMediaPlayback" value="false" />
+  <preference name="OpenAllWhitelistURLsInWebView" value="false" />
+  <preference name="BackupWebStorage" value="cloud" />
+  <preference name="permissions" value="none" />
+
+
+
+  <preference name="webviewbounce" value="true" />
+
+  <preference name="stay-in-webview" value="false" />
+  <preference name="ios-statusbarstyle" value="black-opaque" />
+
+
+  <preference name="show-splash-screen-spinner" value="true" />
+  <preference name="auto-hide-splash-screen" value="true" />
+  <preference name="disable-cursor" value="false" />
+
+  <preference name="android-installLocation" value="auto" />-->
+
+
+</widget>

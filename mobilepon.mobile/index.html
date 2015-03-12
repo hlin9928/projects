@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Mobilepon Deals</title>
+<!--<meta name="viewport" content="width=device-width,initial-scale=1"/>-->
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css">
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script>
+    $(document).on("mobileinit", function () {
+        $.mobile.toolbar.prototype.options.addBackBtn = true;
+        $.mobile.changePage.defaults.allowSamePageTransition = true;
+    });
+</script>
+<script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.js"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
+
+
+<script src="js/handlebars.js"></script>
+<script src="cordova.js"></script>
+<script src="js/iscroll.js"></script>
+<script src="js/main.js"></script>
+<script src="js/barcodedetails.js"></script>
+<script type="text/javascript" src="barcodescanner.js"></script>
+<script src="js/client.js"></script>
+<script src="cdv-plugin-fb-connect.js"></script>
+<script src="facebook-js-sdk.js" ></script>
+<script src="js/facebook.js"></script>
+</head>
+
+<body>
+
+<div id="categoryListPage" data-role="page" data-theme="a" style="height:100%">
+    <div data-role="header"  data-position="fixed"  data-theme="b">
+        <h1>Mobilepon</h1>
+        <form onsubmit="return SearchClient()">
+            <input type="search" id="SearchTerm" name="SearchTerm" value=""  data-type="search" placeholder="Search by business name"   data-theme="a">
+        </form>
+    </div>
+
+    <div class="extenalPageContent">
+        <div class="scroll">
+            <ul data-role="listview" data-filter="false" id="listViewCategoryLists"></ul>
+            <script id="tplCategoryLists" type="text/x-handlebars-template">
+                {{#.}}
+                    <li><a href="ClientList.html?CategoryID={{CategoryID}}" data-transition1="slide"  rel="external">
+                           <div>
+                               <img alt="" src="images/Category{{CategoryID}}.png" class="CategoryImage"/>
+                           </div>
+                        <div class="content">
+                           <div class="Title1">
+                                {{Category}}
+                           </div>
+                        </div>
+                    </a></li>
+                 {{/.}}
+            </script>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $("#categoryListPage").on('pageshow', function () {
+            $.mobile.loading('show');
+            $.getJSON(ServiceUrlRoot + "GetCategories.ashx", function(categoryList)
+            {
+                var tplName = "#tplCategoryLists";
+                var template = Handlebars.compile($(tplName).html());
+                var templateResult = template(categoryList);
+                var $listContainer = $("#listViewCategoryLists");
+                $listContainer.empty();
+                $listContainer.append(templateResult);
+                $listContainer.listview().listview('refresh');
+                $.mobile.loading('hide');
+            });
+        })
+
+    </script>
+
+    <div data-role="footer" style="text-align:center;"  data-position="fixed"  data-theme="a" class="footer">
+        <div data-role="navbar">
+            <ul>
+                <li class="active"><a href="index.html" data-transition="slide" rel="external" class="ui-btn ui-icon-home ui-btn-icon-top">Nearyby</a></li>
+                <li><a href="javascript:void(0)" rel="external" class="ui-btn ui-icon-camera ui-btn-icon-top" onclick="ScanBarcode()">Scan QR</a></li>
+                <li><a href="javascript:MyStore();void(0)"   rel="external" data-transition="slide" class="ui-btn ui-icon-heart ui-btn-icon-top">Favorites</a></li>
+                <li><a href="login.html" id="navAccount" data-transition="slide" class="ui-btn ui-icon-user ui-btn-icon-top">Account</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

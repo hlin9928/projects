@@ -1,0 +1,48 @@
+﻿<div id="confirmReceiptScanPage" data-role="page" data-theme="a">
+    <div class="extenalPageContent">
+        <h1>Please Confirm the Order Number below:</h1>
+        <input type="text" id="orderNo" />
+        <a href="#" data-role="button" data-theme="b" data-transition="slide" onclick="ProcessReceiptScan('Cancel');" style="clear:both;">Cancel</a> 
+        <a href="#" data-role="button" data-theme="b" data-transition="slide" onclick="ProcessReceiptScan('Rescan');" style="clear:both;">Rescan</a> 
+        <a href="#" data-role="button" data-theme="b" data-transition="slide" onclick="ProcessReceiptScan('Confirm');" style="clear:both;">Confirm</a> 
+    </div>
+
+    <script type="text/javascript">
+        ApplyMasterPage("#confirmReceiptScanPage");
+        $("#confirmReceiptScanPage").on('pageshow', function () {
+            var orderNo = getUrlVars()["orderNo"];
+            $("#orderNo").val(orderNo);
+            LoadMasterPage();
+        })
+
+        function ProcessReceiptScan(action) {
+            var clientID = g_Client.GetCurrentClient().ClientID.toString();
+            var orderNo = $("#orderNo").val();
+
+            if (orderNo == "") {
+                ApplicationAlertWithTitle("Order Number can't be empty", "Failed");
+                return;
+            }
+            if (action == "Cancel")
+                $.mobile.changePage("clientdetail.html?clientID=" + clientID);
+            else if (action == "Rescan") {
+                ScanClientReceipt(clientID, null, null);
+            }
+            else if (action == "Confirm") {   //confirm scan
+
+                var servicePath = 'ScanClientReceipt.ashx?callback=callback&receiptContent=' + orderNo + '&customerID=' + g_Application.UserID + '&clientID=' + clientID;
+                $.getJSON(ServiceUrlRoot + servicePath, function (result) {
+                    if (result.Errorcode == 0) {
+                        ApplicationAlertWithTitle(result.Message, "Success");
+                        $.mobile.changePage("clientdetail.html?clientID=" + clientID);
+                    }
+                    else
+                        ApplicationAlertWithTitle(result.Message, "Failed");
+
+                });
+            }
+                
+
+        }
+    </script>
+</div>

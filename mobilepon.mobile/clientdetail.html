@@ -1,0 +1,445 @@
+﻿<div id="clientDetailPage" data-role="page" data-theme="a">
+    <div class="extenalPageContent">
+        <script id="tplClientDetail" type="text/x-handlebars-template">
+            <div class="imageContent ">
+            {{#if ClientImages}}
+                <img alt="" src="{{ImageFileAbsoluteUrl}}" class="stackthree clientImage" />
+                <img alt="" src="{{ImageFileAbsoluteUrl}}" class="stacktwo clientImage" />
+                <a href="ClientImageSlider.html?ClientID={{ClientID}}">
+                    <img alt="" src="{{ImageFileAbsoluteUrl}}" class="stackone clientImage" />
+                </a>
+            {{else}}
+                <img alt="" src="{{ImageFileAbsoluteUrl}}" class="stackone clientImage" />
+            {{/if}}
+            </div> 
+            <div class="businessContent">
+                <div class="businessName">
+                    {{BusinessName}}
+                </div>
+<!--                <div>
+                    <div class="fb-share-button" data-href="http://www.mobilepon.com/Socialmediatest.aspx" data-layout="button_count"></div>
+                    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+                </div>-->
+                <div class="location">
+                    <a href="GMapPage.html?Latitude={{Latitude}}&Longitude={{Longitude}}" class="ui-btn ui-icon-location ui-btn-icon-left">
+                        {{BusinessAddress1}}<br /> {{BusinessCity}} {{BusinessStateCode}},{{BusinessZip}}<br />
+                    </a>
+                </div>
+<!--                {{#if WebsiteAddress1}}
+                    <a href="#" class="ui-btn ui-icon-home ui-btn-icon-left" onclick="window.open('{{WebsiteAddress}}','_self','location=no','closebuttoncaption=Return');">{{WebsiteAddress}}</a>          
+                {{/if}}
+                {{#if WebsiteAddress}}
+                    <a href="#" class="ui-btn ui-icon-home ui-btn-icon-left" onclick="openExternalUrl('{{WebsiteAddress}}');">{{WebsiteAddress}}</a>          
+                {{/if}}-->
+                {{#if BusinessPhone}}
+                                    <div class="phone"><a href="tel:{{BusinessPhone}}" class="ui-btn ui-icon-phone ui-btn-icon-left">{{BusinessPhone}}</a></div>          
+                {{/if}}    
+                {{#if IsVIP}}
+                    <div>Membership Status: VIP</div>          
+                {{/if}}    
+                <div class="addFavorite"> <a href="#" onclick="AddRemoveFavorite({{ClientID}},'{{IsFavorite}}')" id="btnAddRemoveFavorite" class="ui-btn ui-icon-addFavorite ui-btn-icon-left Title1"></a></div>                                           
+            </div>
+            <ul data-role="listview" data-inset="true" data-divider-theme="a" id="socialView">
+                <li data-role="list-divider">
+                    <div class="CountDisplay BodyContent2">Share</div>
+                    <div class="socialButton">
+                        <input type="image" src="images/facebook.png" name="saveForm"  onclick="shareByFacebook();" width="25" height="25" class="socialButton"/>
+                        <input type="image" src="images/twitter.png" name="saveForm"  onclick="shareByTwitter();" width="25" height="25" class="socialButton"/>
+                        <input type="image" src="images/email.png" name="saveForm"  onclick="shareByEmail();" width="25" height="25" class="socialButton"/>
+                    </div>
+                </li>
+             </ul>
+            {{#if VisitCustomer.RegisterStudentInfo}}
+                {{#if Raffles}}
+                    <section>	
+                         {{#Raffles}}
+                            <a href="javascript:ScanClientReceipt({{ClientID}},onScanSucess,null);void(0)" data-role="button" data-theme="b" data-transition="slide"  class="ui-link ui-btn ui-btn-b ui-shadow ui-corner-all">{{OfferName}}</a>
+                            <div>{{OfferDescription}}</div>
+                            <div style="margin:10px 0px 0px 0px">{{ExtraDescription1}}</div>
+                         {{/Raffles}}
+                       <div style="margin:5px 0px 0px 0px">
+                            <span id="idRaffleVisitCount"></span> <a href="RaffleEventVisitHistory.html" data-role="button" data-theme="b" data-transition="slide" id="idRaffleHistory">View History</a></span>
+                       </div>
+                       <div>
+                            <div>School Name:{{VisitCustomer.RegisterStudentInfo.SchoolName}}</div>
+                            <div>Student id: {{VisitCustomer.RegisterStudentInfo.StudentID}}</div>
+                            <div>Name:       {{VisitCustomer.RegisterStudentInfo.FirstName}} {{VisitCustomer.RegisterStudentInfo.LastName}}</div>
+                        </div>
+
+                       <a href="RafferWinners.html?ClientID={{ClientID}}" data-role="button" data-theme="b" data-transition="slide"  class="ui-link ui-btn ui-btn-b ui-shadow ui-corner-all">Raffle Winner History</a>
+
+                    </section>
+                {{/if}}
+            {{else}}
+                {{#if Raffles}}
+                     {{#Raffles}}
+                        <section>	
+                            <a href="RaffleEvent.html?clientID={{ClientID}}" data-role="button" data-theme="b" data-transition="slide"  class="ui-link ui-btn ui-btn-b ui-shadow ui-corner-all">{{OfferName}}</a>
+                            <div>{{OfferDescription}}</div>
+                            <div style="margin:10px 0px 0px 0px">{{ExtraDescription1}}</div>
+
+                           <a href="RafferWinners.html?ClientID={{ClientID}}" data-role="button" data-theme="b" data-transition="slide"  class="ui-link ui-btn ui-btn-b ui-shadow ui-corner-all">Raffle Winner History</a>
+                        </section>
+                    {{/Raffles}}
+                {{/if}}
+            {{/if}}
+<!--            <div class="addFavorite"> <a href="#" onclick="AddRemoveFavorite({{ClientID}})" id="btnAddRemoveFavorite" class="ui-btn ui-icon-addFavorite ui-btn-icon-left Title1"></a></div>-->
+            {{#if Loyaltys}}
+                <div id="LoyaltyLabel" class="head2">Rewards Program</div>
+                <div>
+                      {{#if LoyaltyInstruction}}
+                        {{LoyaltyInstruction}}
+                      {{else}}
+                        Earn one point per paid visit.
+                      {{/if}}
+                </div>
+
+                    <div class="havePoints">
+                        You Have <a href="CustomerCheckInHistory.html"><b>{{Point}}</b></a> <span id="rewardPoint"></span>
+<!--                        <div class="youHave">You Have </div> 
+                        <a href="CustomerCheckInHistory.html"><div class="CountDisplay1">{{Point}} points</div></a>-->
+<!--                        <div class="CheckIn"><input type="button" value="Check-in" onclick="ScanBarcode()"/></div>-->
+                    </div>
+
+                <div  class="CouponSection" id="loyaltyCollapse">
+                    <div style="clear:both">
+                        <ul data-role="listview" data-inset="true" data-divider-theme="a" id="loyaltyListView">
+                            <li data-role="list-divider">
+                                <div class="CountDisplay BodyContent2">Points</div>
+                                <div class="ProgramName BodyContent2">Rewards</div>
+                            </li>
+                            {{#Loyaltys}}
+                                <li><a href="javascript:ActionOnLoyalty({{OfferID}},{{PointsNeed}})">                                   
+	                                    <div requiredPoints="{{PointsNeed}}">
+                                            <div class="CountDisplay BodyContent2">{{PointsNeed}}</div>
+                                            <div class="ProgramName BodyContent2">{{OfferName}}</div> 
+                                        </div>                                    
+                                </a></li>
+                            {{/Loyaltys}}
+                        </ul>
+                    </div>
+                </div>
+            {{/if}}
+
+            {{#if NextDayCoupons}}
+            <div class="head2 coupon_head">Next Visit Coupon</div>
+            <div  class="CouponSection">
+                    {{#NextDayCoupons}}
+                        {{#if IsValid}}
+                            <a href="javascript:ActionOnOffer({{OfferID}})">                
+	                            <div class="OfferContent">
+                                    <div class="OfferDescription">Valid on:{{NextVisitCouponValidDate}}</div>
+                                    <div class="OfferName">{{OfferName}}</div> 
+                                    <div class="OfferDescription">{{OfferDescription}}</div>
+	                                <div class="OfferMoreDescription">{{ExtraDescription1}}</div>
+                                    <div class="ExpiresDate">Exp: {{EndDateDisplay}}</div>
+                                    <div class="OfferAction ButtonFontSize">Redeem</div>                            
+                                </div>
+                            </a>
+                        {{else}}
+	                        <div class="OfferContent">
+                                <div class="OfferName">{{OfferName}}</div> 
+                                <div class="OfferDescription">Valid on:{{NextVisitCouponValidDate}}</div>
+                                <div class="OfferDescription">{{OfferDescription}}</div>
+	                            <div class="OfferMoreDescription">{{ExtraDescription1}}</div>
+                                <div class="ExpiresDate">Exp: {{EndDateDisplay}}</div>
+                                <div class="OfferAction ButtonFontSize Inactive">Redeem</div>                            
+                            </div>
+                        {{/if}}
+                    {{/NextDayCoupons}}
+            </div>
+            {{/if}}
+            {{#if Coupons}}
+            <div class="head2 coupon_head">Coupons</div>
+            <div class="CouponSection" id="couponCollapse">
+                    {{#Coupons}}     
+                        {{#if IsRedeemed}}
+	                        <div class="OfferContent">
+                                <div class="OfferName">{{OfferName}}</div> 
+                                <div class="OfferDescription">{{OfferDescription}}</div>
+	                            <div class="OfferMoreDescription">{{ExtraDescription1}}</div>
+                                <div class="ExpiresDate">Exp: {{EndDateDisplay}}</div>
+                                <div class="OfferAction ButtonFontSize Inactive">Redeemed</div>                            
+                            </div>
+                        {{else}}
+                            <a href="javascript:ActionOnOffer({{OfferID}})">                
+	                            <div class="OfferContent">
+                                    <div class="OfferName">{{OfferName}}</div> 
+                                    <div class="OfferDescription">{{OfferDescription}}</div>
+	                                <div class="OfferMoreDescription">{{ExtraDescription1}}</div>
+                                    <div class="ExpiresDate">Exp: {{EndDateDisplay}}</div>
+                                    <div class="OfferAction ButtonFontSize">Redeem</div>                            
+                                </div>
+                            </a>
+                        {{/if}}
+                    {{/Coupons}}
+            </div>
+            {{/if}}
+            {{#if ClientHr}}
+            
+            <div class="content_section">
+                {{#if ClientHr.Monday}}
+                    <div class="display-label">Monday</div>
+                    <div class="display-field">{{ClientHr.Monday}} </div>
+                {{/if}}
+                {{#if ClientHr.Tuesday}}
+                    <div class="display-label">Tuesday</div>
+                    <div class="display-field">{{ClientHr.Tuesday}} </div>
+                {{/if}}
+                {{#if ClientHr.Wednesday}}
+                    <div class="display-label">Wednesday</div>
+                    <div class="display-field">{{ClientHr.Wednesday}} </div>
+                {{/if}}
+                {{#if ClientHr.Thursday}}
+                    <div class="display-label">Thursday</div>
+                    <div class="display-field">{{ClientHr.Thursday}} </div>
+                {{/if}}
+                {{#if ClientHr.Friday}}
+                    <div class="display-label">Friday</div>
+                    <div class="display-field">{{ClientHr.Friday}} </div>
+                {{/if}}
+                {{#if ClientHr.Saturday}}
+                    <div class="display-label">Saturday</div>
+                    <div class="display-field">{{ClientHr.Saturday}} </div>
+                {{/if}}
+                {{#if ClientHr.Sunday}}
+                    <div class="display-label">Sunday</div>
+                    <div class="display-field">{{ClientHr.Sunday}} </div>
+                {{/if}}
+                {{#if ClientHr.Notes}}
+                    <div class="display-label">Notes</div>
+                    <div class="display-field">{{ClientHr.Notes}}</div>
+                {{/if}}
+            </div>
+            {{/if}}
+            {{#if ClientMoreInfo}}
+            <div class="content_section">
+                {{#if ClientMoreInfo.Parking}}
+                    <div class="display-label">Parking Availability</div>
+                    <div class="display-field">{{ClientMoreInfo.Parking}}</div>
+                {{/if}}
+                {{#if ClientMoreInfo.ServedTime}}
+                    <div class="display-label">Meal Times Served</div>
+                    <div class="display-field">{{ClientMoreInfo.ServedTime}}</div>
+                {{/if}}
+                {{#if ClientMoreInfo.DressCode}}
+                    <div class="display-label">DressCode</div>
+                    <div class="display-field">{{ClientMoreInfo.DressCode}}</div>
+                {{/if}}
+                {{#if ClientMoreInfo.Bar}}
+                    <div class="display-label">Bar</div>
+                    <div class="display-field">{{ClientMoreInfo.Bar}}</div>
+                {{/if}}
+                {{#if ClientMoreInfo.Banquet}}
+                    <div class="display-label">Banquet</div>
+                    <div class="display-field">{{ClientMoreInfo.Banquet}}</div>
+                {{/if}}
+                {{#if ClientMoreInfo.Atmosphere}}
+                    <div class="display-label">Atmosphere</div>
+                    <div class="display-field">{{ClientMoreInfo.Atmosphere}}</div>
+                {{/if}}
+                {{#if ClientMoreInfo.Delivery}}
+                    <div class="display-label">Delivery</div>
+                    <div class="display-field">{{ClientMoreInfo.Delivery}}</div>
+                {{/if}}
+                {{#if ClientMoreInfo.TakeOut}}
+                    <div class="display-label">Take Out</div>
+                    <div class="display-field">{{ClientMoreInfo.TakeOut}}</div>
+                {{/if}}
+                {{#if ClientMoreInfo.GoodforKids}}
+                    <div class="display-label">Good for Kids</div>
+                    <div class="display-field">{{ClientMoreInfo.GoodforKids}}</div>
+                {{/if}}
+                {{#if ClientMoreInfo.WiFi}}
+                    <div class="display-label">WiFi</div>
+                    <div class="display-field">{{ClientMoreInfo.WiFi}}</div>
+                {{/if}}
+                {{#if ClientMoreInfo.HasTV}}
+                    <div class="display-label">HasTV</div>
+                    <div class="display-field">{{ClientMoreInfo.HasTV}}</div>
+                {{/if}}
+                {{#if ClientMoreInfo.OutdoorSeating}}
+                    <div class="display-label">Outdoor Seating</div>
+                    <div class="display-field">{{ClientMoreInfo.OutdoorSeating}}</div>
+                {{/if}}
+                {{#if ClientMoreInfo.Reservation}}
+                    <div class="display-label">Reservation</div>
+                    <div class="display-field">{{ClientMoreInfo.Reservation}}</div>
+                {{/if}}
+                {{#if ClientMoreInfo.PayMethod}}
+                    <div class="display-label">Pay Method</div>
+                    <div class="display-field">{{ClientMoreInfo.PayMethod}}</div>
+                {{/if}}
+            </div>
+            {{/if}}
+            {{#if ClientDescription}}
+                <div class="content_section">
+                    <h1>Highlights</h1>
+                    <div style="white-space: pre-line">{{ClientDescription}}</div>
+                </div>
+            {{/if}}
+        </script>
+    </div>
+
+    <script type="text/javascript">
+        var socialmessageSubject;
+
+        ApplyMasterPage("#clientDetailPage");
+
+        $("#clientDetailPage").on('pageshow', function (event, ui) {
+            if (g_Application.UserName == "") {
+                //var prePageID = ui.prevPage.attr("id");
+
+                //if (prePageID != "loginPage")
+                //    $.mobile.changePage("login.html");
+                //    //$.mobile.navigate("login.html", { transition: "slide", info: "info about the bar hash" });
+                //else
+                //    window.location.href = g_MobilePreviousUrl;
+                $.mobile.changePage("login.html");
+                return;
+            }
+
+            g_Client = new Client("#clientDetailPage div.sharedBodyPlaceHolder");
+
+            if (getUrlVars()["clientID"] == undefined) {
+                g_Client.ScanBarcode();
+            }
+            else {
+                g_Client.LoadClientByID(getUrlVars()["clientID"])
+            }
+            LoadMasterPage();
+        })
+
+        var cFavorite='';
+        function AddRemoveFavorite(clientID,IsFavorite) {
+
+            if (g_Application.UserID == "") {
+                $.mobile.navigate("login.html", { transition: "slide", info: "info about the bar hash" });
+                return;
+            }
+
+            var jsonUrl = ServiceUrlRoot + "AddRemoveFavorite.ashx?ClientID=" + clientID + "&UserID=" + g_Application.UserID;
+            if (cFavorite == '')
+                cFavorite = IsFavorite;
+
+            if (cFavorite == "1")
+            {
+                ApplicationConfirm("Remove From Favorite", "Are you sure you want to Remove From Favorite?", function (buttonIndex) {
+                    if (buttonIndex == 2) {
+                        $.getJSON(jsonUrl, function (clientVisit) {
+                            //$("#btnAddRemoveFavorite").attr("src", "images/addFav24x24.png");
+                            $("#btnAddRemoveFavorite").html("Add To Favorite");
+                            $("#btnAddRemoveFavorite").removeClass("ui-icon-removeFavorite");
+                            $("#btnAddRemoveFavorite").addClass("ui-icon-addFavorite");
+                            cFavorite='0';
+                        })
+                    }
+                })
+            }
+            else
+            {
+
+                $.getJSON(jsonUrl, function (clientVisit) {
+                    //$("#btnAddRemoveFavorite").attr("src","images/Remove22x22.png");
+                    cFavorite='1';
+                    ApplicationAlertWithTitle("This business is added to your favorite.","Add to Favorte");
+                    $("#btnAddRemoveFavorite").html("Remove From Favorite");
+                    $("#btnAddRemoveFavorite").removeClass("ui-icon-addFavorite");
+                    $("#btnAddRemoveFavorite").addClass("ui-icon-removeFavorite");
+                })
+            }
+
+
+            //if ($("#btnAddRemoveFavorite").html() == "Add To Favorite") {
+            //    $.getJSON(jsonUrl, function (clientVisit) {
+            //        ApplicationAlert("This business is added to your favorite.");
+            //        $("#btnAddRemoveFavorite").html("Remove From Favorite");
+            //        $("#btnAddRemoveFavorite").removeClass("ui-icon-addFavorite");
+            //        $("#btnAddRemoveFavorite").addClass("ui-icon-removeFavorite");
+            //    })
+            //}
+            //else {
+            //    ApplicationConfirm("Remove From Favorite", "Are you sure you want to Remove From Favorite?", function (buttonIndex) {
+            //        if (buttonIndex == 2) {
+            //            $.getJSON(jsonUrl, function (clientVisit) {
+            //                $("#btnAddRemoveFavorite").html("Add To Favorite");
+            //                $("#btnAddRemoveFavorite").removeClass("ui-icon-removeFavorite");
+            //                $("#btnAddRemoveFavorite").addClass("ui-nico-addFavorite");
+            //            })
+            //        }
+            //    })
+            //}
+
+            return false;
+        }
+
+        function ActionOnLoyalty(offerID, pointNo) {
+            if (g_Application.UserName == "") {
+                $.mobile.changePage("login.html");
+            }
+            else {
+                var client = g_Client.GetCurrentClient();
+                if (client.Point != null && Number(client.Point) >= Number(pointNo)) {
+                    $.mobile.changePage("OfferDetail.html?offerID=" + offerID);
+                }
+                else {
+                    ApplicationAlertWithTitle("Earn more points to redeem the offer.","Earn More points");
+                }
+            }
+        }
+
+        function ActionOnOffer(offerID) {
+            if (g_Application.UserName == "") {
+                $.mobile.changePage("login.html");
+            }
+            else {
+                $.mobile.changePage("OfferDetail.html?offerID=" + offerID);
+            }
+        }
+
+
+        function shareByFacebook() {
+            var body=GetMessageBody();
+            window.plugins.socialsharing.shareViaFacebook(body, null /* img */, null /* url */
+                , function () { console.log('share ok') }
+                , function (errormsg) { alert(errormsg) }
+            );
+        }
+        function shareByTwitter() {
+            var body=GetMessageBody();
+            window.plugins.socialsharing.shareViaTwitter(body);
+        }
+        function shareByEmail() {
+            var body=GetMessageBody();
+            window.plugins.socialsharing.shareViaEmail(
+              body, // can contain HTML tags, but support on Android is rather limited:  http://stackoverflow.com/questions/15136480/how-to-send-html-content-with-image-through-android-default-email-client
+              'You will love it',
+              null, // TO: must be null or an array
+              null, // CC: must be null or an array
+              null, // BCC: must be null or an array
+              null, // FILES: can be null, a string, or an array
+              null, // called when sharing worked, but also when the user cancelled sharing via email (I've found no way to detect the difference)
+              null // called when sh*t hits the fan
+            );
+        }
+        var socialmessageBody="";
+        function GetMessageBody()
+        {
+            if(socialmessageBody!="")
+                return socialmessageBody;
+            var client = g_Client.GetCurrentClient();
+            socialmessageBody="Hi\n";
+            socialmessageBody=socialmessageBody.concat("I like to recommend this business to you: ",client.BusinessName," in ",client.BusinessCity
+                ,". You need to download the Mobilepon App first and then search for the business name. You will love it.\n\n"
+                ,g_Application.FullName);
+            return socialmessageBody;
+        }
+
+        function onScanSucess() {
+            var client = g_Client.GetCurrentClient();
+            var visitCount = client.RaffleCustomerVisitCount+1;
+            $("#idRaffleVisitCount").html("You have visited " + visitCount.toString() + " times.");
+        }
+
+    </script>
+</div>

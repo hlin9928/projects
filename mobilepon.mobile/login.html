@@ -1,0 +1,162 @@
+﻿<div id="loginPage" data-role="page" data-theme="a">
+    <div class="extenalPageContent">
+        <div id="pnlAnnomousUser">
+        <div id="resetPasswordForm" title="Forgot Password" style="background:white">
+            <div>Please enter your email address.</div>
+            <form method="post" id="resetForm" name="resetForm">
+                <div data-role="fieldcontain">
+                    <input name="UserName"  id="email" class="required email" minlength="3" type="email" placeholder="Email address"/> 
+                </div>	           				
+            </form>	
+        </div>
+            <h1 style="text-align:left;font-weight:bold">Please Sign in to Your Account</h1>
+         <div class="facebookSignin">
+            <div class="facebookButton"  onclick="FacebookSignIn();">Sign in with <b>Facebook</b></div>            
+        </div>
+        <div class="loginOr">Or sign in with your Mobilepon account</div>
+            <form action="index.html" method="post" id="loginForm" name="loginForm">
+                    <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+                     <label for="UserName"> Email Address: </label>
+                    <input name="UserName"  id="UserName" class="required email" minlength="3" type="email"/> 
+                    <label for="Password"> Password: </label>
+                    <input type="Password" name="Password"  id="Password"  class="required"/> 
+                <a href="#" data-role="button" data-theme="b" data-transition="slide" onclick='$("#loginForm").submit();' style="clear:both;">Sign In</a>                            					
+            </form>	
+            <br />
+            <a href="javascript:OpenResetPasswordForm();void(0)" class="ui-shadow ui-corner-all ui-btn-inline">Forgot Password?</a>
+
+            <section>			
+                <p style="text-align:center;font-weight:bold;font-size:14px">New to Mobilepon? Create an account! It's quick, easy and free.</p>
+					
+                <a href="register.html" data-role="button" data-theme="b" data-transition="slide">Create an Account</a>
+                <a href="help.html" data-role="button" data-theme="b" data-transition="slide">Help</a>
+                <div class="TermsPrivacy">
+                    <a href="terms.html" data-theme="b" data-transition="slide">Terms</a>|<a href="privacy.html" data-theme="b" data-transition="slide">Privacy </a>
+                </div>
+            </section>
+        </div>
+        <div id="pnlAuthenticated">
+            <section>			
+                <h1 id="idEmail"></h1>
+<!--                <div id="idGender"></div>-->
+                <div id="idZipcode"></div>
+                <a href="logoff.html" data-role="button" data-theme="b" data-transition="slide">Log off</a>
+                <a href="help.html" data-role="button" data-theme="b" data-transition="slide">Help</a>
+                <div class="TermsPrivacy">
+                    <a href="terms.html" data-theme="b" data-transition="slide">Terms</a>|<a href="privacy.html" data-theme="b" data-transition="slide">Privacy </a>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        ApplyMasterPage("#loginPage");
+
+        $("#loginPage").on('pageshow', function () {
+            if (g_Application.UserName != "") {
+                $("#pnlAuthenticated").show();
+                $("#pnlAnnomousUser").hide();
+
+                var jsonUrl = WebsiteRoot + "Account/GetCustomer?UserName=" + g_Application.UserName;
+                $("#idEmail").html("You login as " + jsonUrl);
+                $.getJSON(jsonUrl, function (Customer) {
+                    $("#idEmail").html("You login as " + Customer.UserName);
+                    if(Customer.Gender)
+                        $("#idGender").html("Gender:" + Customer.Gender);
+                    if(Customer.Zip)
+                        $("#idZipcode").html("Zipcode:"+Customer.Zip);
+                });
+            }
+            else {
+                $("#pnlAuthenticated").hide();
+                $("#pnlAnnomousUser").show();
+
+                $("#loginForm").submit(function (event) {
+                    LoginNormalCustomer()
+                    event.preventDefault();
+                });
+
+                $("div[aria-describedby='resetPasswordForm']").remove();
+                resetPasswordDialog = $("#resetPasswordForm").dialog({
+                    autoOpen: false,
+                    height: 200,
+                    width: 300,
+                    modal: true,
+                    buttons: {
+                        "Ok": ResetPassword,
+                        Cancel: function () {
+                            resetPasswordDialog.dialog("close");
+                        }
+                    },
+                    close: function () {
+                        //form[0].reset();
+                        // allFields.removeClass("ui-state-error");
+                    }
+                })
+            }
+            g_FooterLinkIndex = 3;
+            LoadMasterPage();
+            $("#loginForm").validate({
+                errorPlacement: function (error, element) {
+                    error.appendTo(element.parent().prev());
+                }
+            })
+        })
+
+        function FacebookSignIn() {
+
+            //facebookConnectPlugin.getLoginStatus(function () { alert("sucess"); }, function () { alert("failure"); })
+            facebookConnectPlugin.login(["email"],
+                function fbLoginSuccess(response) {
+                    if (response.status === 'connected') {
+                        facebookConnectPlugin.api("/me", ["email"]
+                            , function (userData) {
+                                var accountData = {
+                                    "UserName": userData.email
+                                    //, "firstName": userData.first_name
+                                    //, "lastName": userData.last_name
+                                    , "UserType": "Facebook"
+                                };
+
+                                LoginCustomer(accountData, "Facebook");
+                                return false;
+                            }
+                            ,function()
+                            {
+                                ApplicationAlert("Failed to receive email infor");
+                            }
+                        )
+                    } else if (response.status === 'not_authorized') {
+                        ApplicationAlert("You are not authorized");
+                    } else {
+                        ApplicationAlert("You are not connected to facebook");
+                    }
+                },
+                function (error) { ApplicationAlert(error) }
+            );
+            return false;
+            //FB.login(function (response) {
+            //    console.log(response);
+            //    if (response.status === 'connected') {
+            //        FB.api('/me', function (response) {
+            //            console.log(response);
+            //            var accountData = {
+            //                "UserName": response.email
+            //                //, "firstName": response.first_name
+            //                //, "lastName": response.last_name
+            //                , "UserType": "Facebook"
+            //            };
+            //            console.log(accountData);
+            //            LoginCustomer(accountData, "Facebook");
+            //        });
+            //    } else if (response.status === 'not_authorized') {
+            //    } else {
+            //    }
+
+            //}, { scope: 'public_profile,email' });
+        }
+
+    </script>
+
+</div>

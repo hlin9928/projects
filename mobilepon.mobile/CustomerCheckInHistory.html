@@ -1,0 +1,30 @@
+﻿<div id="CustomerCheckInHistory" data-role="page" data-theme="a">
+    <div class="extenalPageContent">
+        <h1>Visit History</h1>
+        <div id="idHistoryContainer"></div>
+        <script id="tplCustomerCheckInHistory" type="text/x-handlebars-template">
+            <ul data-role="listview" data-inset="true" data-divider-theme="d" id="visitHistory">
+             {{#.}}
+                <li>
+	                <div class="visitHistory">
+                        <div>Visited Time: {{VisitedDateDisplay}}</div>
+                        <div>Location:     {{Latitude}},{{Longitude}}</div> 
+                        <div>Distance:     {{DistanceToClient}}</div>
+                    </div>
+                </li>
+             {{/.}}
+            </ul>
+        </script>
+    </div>
+
+    <script type="text/javascript">
+        ApplyMasterPage("#CustomerCheckInHistory");
+        $("#CustomerCheckInHistory").on('pageshow', function () {
+            if (g_Application.UserName == "") {
+                $.mobile.changePage("login.html");
+            }
+            g_Client.LoadCustomerVistList("#idHistoryContainer");
+            LoadMasterPage();
+        })
+    </script>
+</div>

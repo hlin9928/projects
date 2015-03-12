@@ -1,0 +1,45 @@
+﻿<div id="RaffleEventVisitHistory" data-role="page" data-theme="a">
+    <div class="extenalPageContent">
+        <h1>Visit History</h1>
+        <div id="idRaffleEventVisitHistory"></div>
+        <script id="tplRaffleEventVisitHistory" type="text/x-handlebars-template">
+            <ul data-role="listview" data-inset="true" data-divider-theme="d" id="visitHistory">
+             {{#.}}
+                <li>
+	                <div class="visitHistory">
+                        <div>Visited Time: {{VisitedDateDisplay}}</div>
+                        <div>OrderNumber:     {{ReceiptContent}}</div> 
+                    </div>
+                </li>
+             {{/.}}
+            </ul>
+        </script>
+    </div>
+
+    <script type="text/javascript">
+        ApplyMasterPage("#RaffleEventVisitHistory");
+        $("#RaffleEventVisitHistory").on('pageshow', function () {
+            if (g_Application.UserName == "") {
+                $.mobile.changePage("login.html");
+            }
+            $.mobile.loading('show');
+            var client = g_Client.GetCurrentClient();
+            $.getJSON(ServiceUrlRoot + "GetRaffleVisitHistory.ashx?clientID=" + client.ClientID + "&customerID=" + g_Application.UserID, DisplayRaffleEventVisitHistory);
+            LoadMasterPage();
+        })
+
+        function DisplayRaffleEventVisitHistory(customerVisit) {
+            var tplName = "#tplRaffleEventVisitHistory";
+            var template = Handlebars.compile($(tplName).html());
+            var templateResult = template(customerVisit);
+            $parentObject = $("#idRaffleEventVisitHistory");
+            $parentObject.empty();
+            $parentObject.append(templateResult);
+
+            $('#visitHistory').listview().listview('refresh');
+            $.mobile.loading('hide');
+        }
+
+
+    </script>
+</div>

@@ -1,0 +1,41 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>Mobilepon Deals</title>
+<!--<meta name="viewport" content="width=device-width,initial-scale=1"/>-->
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script>
+    $(document).on("mobileinit", function () {
+        $.mobile.toolbar.prototype.options.addBackBtn = true;
+        $.mobile.changePage.defaults.allowSamePageTransition = true;
+    });
+</script>
+<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+
+
+
+</head>
+
+<body>
+
+<div id="categoryListPage" data-role="page" data-theme="a" style="height:100%">
+    <div data-role="header"  data-position="fixed"  data-theme="b">
+        <h1>Mobilepon</h1>
+    </div>
+    rwar
+   <select name="select-choice-1" id="select-choice-1">
+      <option value="standard">Standard: 7 day</option>
+      <option value="rush">Rush: 3 days</option>
+      <option value="express">Express: next day</option>
+      <option value="overnight">Overnight</option>
+   </select>
+
+</div>
+
+</body>
+
+</html>

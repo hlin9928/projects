@@ -1,0 +1,49 @@
+﻿<div id="favoriteClientListPage" data-role="page" data-theme="a">
+    <div class="extenalPageContent">
+            <ul data-role="listview" data-filter="false" id="listViewClientLists"></ul>
+            <script id="tplClientLists" type="text/x-handlebars-template">
+                {{#.}}
+                    <li><a href="clientdetail.html?clientID={{ClientID}}">
+                        <div>
+                            <img alt="" src="{{ImageFileAbsoluteUrl}}" class="offerImage"/>
+                        </div>
+                        <div class="content">
+                            <div class="businessName">
+                                {{BusinessName}}
+                            </div>
+                            <div class="address">
+                                {{BusinessAddress1}}<br />
+                                {{BusinessCity}} {{BusinessStateCode}},{{BusinessZip}}              
+                            </div>
+                            {{#if Point}}
+                                <span class="ui-li-count">{{Point}} Points</span>     
+                            {{/if}} 
+                        </div> 
+                        <div class="offer">
+                            <div>{{PrimaryOffer.OfferName}}</div>            
+                            <div>{{PrimaryOffer.OfferDescription}}</div>     
+                        </div>                                     
+                    </a></li>
+
+                 {{/.}}
+            </script>	
+    </div>
+
+    <script type="text/javascript">
+        ApplyMasterPage("#favoriteClientListPage");
+        $("#favoriteClientListPage").on('pageshow', function () {
+            if (g_Application.UserName == "")
+            {
+                $.mobile.changePage("login.html");
+                //$.mobile.navigate("login.html", { transition: "slide", info: "info about the bar hash" });
+            }
+            else
+            {
+                var client = new Client("#listViewClientLists");
+                client.LoadFavoriteClient(g_Application.UserID);
+            }
+            LoadMasterPage();
+        })
+    </script>
+</div>
+

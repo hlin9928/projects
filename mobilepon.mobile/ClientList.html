@@ -1,0 +1,240 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>Mobilepon Deals</title>
+<!--<meta name="viewport" content="width=device-width,initial-scale=1"/>-->
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css">
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script>
+    $(document).on("mobileinit", function () {
+        $.mobile.toolbar.prototype.options.addBackBtn = true;
+        $.mobile.changePage.defaults.allowSamePageTransition = true;
+    });
+</script>
+<script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.js"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
+
+<script>
+    var isClientListLoaded = false;
+    var g_CategoryID = "";
+    var g_SearchTerm = "";
+    var g_ClientList;
+</script>
+
+<script src="js/handlebars.js"></script>
+<script src="cordova.js"></script>
+<script src="js/main.js"></script>
+<script src="js/barcodedetails.js"></script>
+<script src="js/client.js"></script>
+<script src="cdv-plugin-fb-connect.js"></script>
+<script src="facebook-js-sdk.js" ></script> 
+<script src="js/facebook.js"></script>
+<script type="text/javascript" src="js/scroll.jquery.js"></script>
+
+<script type="text/javascript">// <![CDATA[
+    !function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (!d.getElementById(id)) {
+            js = d.createElement(s); js.id = id;
+            js.async = true;
+            js.src = "//platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }
+    }(document, "script", "twitter-wjs");
+    // ]]></script>
+
+ 	<script type="text/javascript">
+ 	    var g_PageNo = 2;
+ 	    function BrowserMore(elem) {
+ 	        $(elem).parent().remove();
+ 	        g_ClientList.LoadMoreClients();
+ 	    }
+ 	    //$(document).ready(function () {
+ 	    //    function setParameter() {
+ 	    //        return {
+ 	    //            latitude: g_Application.Latitude
+        //            , longitude: g_Application.Longitude
+        //            , userID: g_Application.UserID
+        //            , categoryID: g_CategoryID
+        //            , searchTerm: g_SearchTerm
+        //            , pageNo: g_PageNo
+ 	    //        }
+ 	    //    }
+
+ 	    //    $('#listViewClientLists').scrollLoad({
+ 	    //        height:$( window ).height(),
+ 	    //        url:  ServiceUrlRoot + "GetClientListByLocation.ashx", 
+ 	    //        getData: setParameter,
+
+ 	    //        start: function () {
+ 	    //            $.mobile.loading('show');
+ 	    //        },
+
+ 	    //        ScrollAfterHeight: 95,			
+
+ 	    //        onload: function (clientLists) {
+ 	    //            g_PageNo++;
+ 	    //            var tplName = "#tplClientLists";
+ 	    //            var template = Handlebars.compile($(tplName).html());
+ 	    //            $(this).append(template(clientLists));
+ 	    //            $(this).listview('refresh');
+ 	    //            $.mobile.loading('hide');
+ 	    //        }, 
+
+ 	    //        continueWhile: function (resp) {
+ 	    //            if ($(this).children('li').length >= 1000) { // stops when number of 'li' reaches 1000
+ 	    //                return false;
+ 	    //            }
+ 	    //            return true;
+ 	    //        }
+ 	    //    });
+
+ 	    //});
+    </script>
+</head>
+
+<body>
+
+
+<div id="clientListPage" data-role="page" data-theme="a" style="height:100%" >
+    <div data-role="header"  data-position="fixed"  data-theme="b">
+        <h1>Mobilepon</h1>
+        <form onsubmit="return SearchClient()">
+            <input type="search" id="SearchTerm" name="SearchTerm" value=""  data-type="search" placeholder="Search by business name"   data-theme="a">
+        </form>
+        <div>
+            <a href="index.html" class="ui-btn ui-corner-all ui-shadow ui-btn-left ui-btn-b ui-icon-carat-l ui-btn-icon-left"  rel="external">Nearby</a>
+        </div>        
+    </div>
+
+    <div class="extenalPageContent">
+            <ul data-role="listview" data-filter="false" id="listViewClientLists"></ul>
+
+            <script id="tplClientLists" type="text/x-handlebars-template">
+            {{#if .}}
+                {{#.}}
+                    {{#if BusinessName}}                 
+                        <li><a href="javascript:RedirectToClientDetail({{ClientID}});void(0)" data-transition1="slide">
+                               <div>
+                                    <img alt="" src="{{ImageFileAbsoluteUrl}}" class="clientImage"/>
+                               </div>
+                            <div class="content" style="height:65px">
+                               <div class="businessName Title1">
+                                    {{BusinessName}}
+                               </div>
+                               <div class="address BodyContent1">
+                                   {{BusinessCity}}
+                                    {{#if IsFavorite}}
+                                        {{#if Point}}
+                                             •{{Point}} points
+                                        {{/if}}
+
+                                    {{else}}
+                                             •{{Distance}}
+                                    {{/if}}
+                               </div>
+                               <div class="address BodyContent1">
+                                   {{Category}}
+                               </div>
+                            </div>
+                            <div class="PrimaryOffer">
+                               {{#if PrimaryLoyalty}}
+                                <div style="float:left;width:100%">
+                                   <div class="PrimaryLoyalty BodyContent1">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{PrimaryLoyalty.OfferSummaryDescription}}
+                                   </div>
+                                   <span class="MoreOffer"><img src="images/more35x17.png" /></span>
+                                </div>
+                                {{/if}}
+                               {{#if PrimaryCoupon}}
+                                <div style="float:left;width:100%">
+                                   <div class="Coupon BodyContent1">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{PrimaryCoupon.OfferSummaryDescription}}
+                                   </div>
+                                   <span class="MoreOffer"><img src="images/more35x17.png" /></span>
+                                </div>
+                                {{/if}}
+                            </div>
+                        </a></li>
+                    {{else}}
+                        <li><a href="javascript:void(0)" onclick="BrowserMore(this)" class="BrowserMore">Browser More</a></li>
+                    {{/if}}
+                 {{/.}}
+                   
+            {{else}}
+                <div id="liNoRecord" style="padding:5px 0px 5px 0px;"> No records meet your search critera.</div>
+            {{/if}}
+            </script>
+
+    </div>
+
+    <script type="text/javascript">
+
+        function RedirectToClientDetail(clientID) {
+            if (g_Application.UserName == "") {
+                $.mobile.changePage("login.html");
+            }
+            else {
+                $.mobile.changePage("clientdetail.html?clientID=" + clientID);
+            }
+        }
+
+
+        $("#clientListPage").on('pageshow', function () {
+
+            g_MobilePreviousUrl = window.location.href;
+
+            var CategoryID = getUrlVar("CategoryID");
+            var SearchTerm = getUrlVar("SearchTerm");
+            if ((CategoryID!=undefined && CategoryID != g_CategoryID) && SearchTerm != g_SearchTerm)
+                isClientListLoaded = false;  // reload client list if the category changed.
+
+            if(CategoryID!=undefined)
+                g_CategoryID = CategoryID;
+            g_SearchTerm = SearchTerm;
+
+            if (!isClientListLoaded) {
+                g_ClientList = new Client("#listViewClientLists");
+
+                if (getUrlVars()["IsFavorite"] == 1) {
+                    if (g_Application.UserName == "") {
+                        $.mobile.changePage("login.html");
+                        //$.mobile.navigate("login.html", { transition: "slide", info: "info about the bar hash" });
+                    }
+                    else {
+                        g_ClientList.LoadFavoriteClient(g_Application.UserID);
+                    }
+                    g_FooterLinkIndex = 2;
+                    SetFooterActive(g_FooterLinkIndex);
+                }
+                else {
+                    g_ClientList.LoadClients();
+                    g_FooterLinkIndex = 0;
+                    SetFooterActive(g_FooterLinkIndex);
+                }
+                isClientListLoaded = true;
+            }
+        })
+
+    </script>
+
+    <div data-role="footer" style="text-align:center;"  data-position="fixed"  data-theme="a" class="footer">
+        <div data-role="navbar">
+            <ul>
+                <li class="active"><a href="index.html" data-transition="slide" rel="external" class="ui-btn ui-icon-home ui-btn-icon-top">Nearyby</a></li>
+                <li><a href="javascript:void(0)" rel="external" class="ui-btn ui-icon-camera ui-btn-icon-top" onclick="ScanBarcode()">Scan QR</a></li>
+                <li><a href="javascript:MyStore();void(0)"  data-transition="slide" class="ui-btn ui-icon-heart ui-btn-icon-top">Favorites</a></li>
+                <li><a href="login.html" id="navAccount" data-transition="slide" class="ui-btn ui-icon-user ui-btn-icon-top">Account</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

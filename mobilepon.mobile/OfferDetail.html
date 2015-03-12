@@ -1,0 +1,70 @@
+﻿<div id="offerDetailPage" data-role="page" data-theme="a">
+    <div class="extenalPageContent">
+
+        <script id="tplCouponDetail" type="text/x-handlebars-template">
+	                    <div class="OfferContent">
+                            <div class="OfferName">{{OfferName}}</div> 
+                            <div class="OfferDescription">{{OfferDescription}}</div>
+                            <div class="ExxpiresDate">Expires {{EndDateDisplay}}</div>
+	                        <div class="OfferMoreDescription">{{ExtraDescription1}}</div>
+                        </div>
+
+                        <div id="panelOfferDetail" style="clear:both">
+                            <div style="color:Red;font-size:14px">Use of this coupon CAN NOT be undone. The action should be performed by a cashier only to ensure proper user.</div>
+                            <a href="javascript:void(0)" class="ui-btn ui-icon-action ui-btn-icon-left" onclick="ConfirmOfferRedeem()">Confirm Use Coupon</a>
+                        </div>
+                        
+                        <div id="panelOfferReceipt" style="clear:both">
+                            <div class="redeemCode" style="clear:both"/>
+                            <div class="message"  style="clear:both"/>
+                        </div>
+        </script>
+
+        <script id="tplLoyaltyDetail" type="text/x-handlebars-template">
+	                <div class="OfferContent">
+                        <div class="OfferName">{{OfferName}}</div> 
+                        <div class="OfferDescription">{{PointsNeed}} Point Needed</div>
+                    </div>
+                    <div id="panelLoyaltyDetail">
+                        <div style="color:Red;font-size:14px">To redeem your points for the reward, please click on the button Redeem.</div>
+                        <div>
+                            <a href="javascript:void(0)" class="ui-btn ui-icon-action ui-btn-icon-left" onclick="ConfirmLoyaltyRedeem()"  data-role="button" data-theme="e">Redeem</a>
+                        </div>
+                    </div>
+                    <div id="panelLoyaltyReceipt">
+                        <div class="redeemCode" style="clear:both"/>
+                        <div class="message"  style="clear:both"/>
+                    </div>
+        </script>
+        <script src="js/offer.js"></script>
+    </div>
+
+    <script type="text/javascript">
+        ApplyMasterPage("#offerDetailPage");
+        $("#offerDetailPage").on('pageshow', function () {
+            g_Offer = new Offer("#offerDetailPage div.sharedBodyPlaceHolder");
+            g_Offer.LoadOfferByID(getUrlVars()["offerID"])
+            LoadMasterPage();
+        })
+
+        function ConfirmOfferRedeem() {
+            ApplicationConfirm("Redeem Coupon", "Are you sure you want to redeem?", function (buttonIndex) {
+                if (buttonIndex == 2) {
+                    g_Offer.RedeemOfferPoint("#panelOfferDetail", "#panelOfferReceipt");
+                }
+            })
+        }
+
+
+        function ConfirmLoyaltyRedeem() {
+            var CurrentOffer = g_Offer.GetOffer();
+            ApplicationConfirm("Redeem Points", "Are you sure you want to redeem for this reward? " + CurrentOffer.PointsNeed + " points will be deducted.", function (buttonIndex) {
+                if (buttonIndex == 2) {
+                    g_Offer.RedeemOfferPoint("#panelLoyaltyDetail", "#panelLoyaltyReceipt");
+                }
+            })
+        }
+
+    </script>
+
+</div>

@@ -1,0 +1,907 @@
+html, body
+{
+    width: 100%;
+    height: 100%;
+    padding:0px;
+    margin:0px;
+
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+.ui-header a:link {
+    color:white;
+}
+
+.ui-header a:visited {
+    color:white;
+}
+
+
+body, input, select, textarea, button, .ui-btn
+{
+    font-family: Verdana, sans-serif;
+    font-size:16px;
+}
+
+.Title1
+{
+    font-size: 14px;
+    font-weight: bold;
+}
+.BodyContent1
+{
+    font-size: 11px;
+}
+
+.BodyContent2
+{
+    font-size: 14px;
+}
+.ButtonFontSize
+{
+    font-size: 12px;
+}
+
+h1
+{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+h2
+{
+    font-size: 14px;
+    font-weight: bold;
+    clear:both;
+}
+
+.head2
+{
+    font-size: 14px;
+    font-weight: bold;
+    clear:both;
+}
+.ui-btn-b
+{
+    background-color: #F47741!important;
+}
+
+.ui-input-text, .ui-input-search
+{
+    margin: 0.5em 10px;
+    border-width: 1px;
+    border-style: solid;
+}
+
+
+.sharedBodyPlaceHolder
+{
+    font-size:12px;
+    padding:10px!important;
+}
+
+.extenalPageContent
+{
+    padding:1px 3px 1px 3px;
+}
+
+.BrowserMore
+{
+    text-align:center!important;
+    padding: 5px 0px 1px 0px!important;
+    margin: 2px!important;
+    font-size:14px;
+    color:white!important;
+    background-color: #F47741!important;
+    border-radius:10px!important;
+    border:1px solid black!important;
+    height:30px;
+    
+}
+#categoryListPage .CategoryImage
+{
+    float:left;
+    width:24px;
+    height:24px;
+}
+#categoryListPage .content
+{
+    padding-top:5px;
+    margin-left:30px;
+    height:28px;
+}
+
+#listViewCategoryLists .ui-btn
+{
+    padding:0.3em 0.5em;
+}
+
+#listViewClientLists li
+{
+    padding: 3px 3px 3px 3px;
+}
+
+#listViewClientLists .clientImage
+{
+    float:right;
+    padding-right: 0px;
+    width:65px;
+    height:65px;
+    border-radius:8px;
+}
+#listViewClientLists .content
+{
+    font-weight:normal;
+    white-space:normal;
+    margin-bottom:5px;
+    float:left;
+}
+
+#listViewClientLists .PrimaryOffer
+{
+    margin-left:5px;
+    font-weight:normal;
+    white-space:normal;
+    margin-bottom:5px;
+}
+
+
+#listViewClientLists .businessName
+{
+    float:left;
+    margin:4px 0px 4px 0px;
+    height:18px;
+    overflow:hidden;   
+
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+}
+
+/*#listViewClientLists .businessName:after {
+      content: " ...";
+   }*/
+
+#listViewClientLists .CountDisplay
+{
+    padding: 0px 0.48em 0px 0.48em;
+    text-align:right;
+    float:right;
+}
+
+
+#listViewClientLists .address
+{
+    padding: 0px 0px 4px 0px;
+    float:left;
+    width:100%;
+}
+
+#listViewClientLists .PrimaryLoyalty
+{
+    margin-bottom:3px;
+    float:left;
+    font-size:14px;
+    background-image:url("../images/trophy17x17.png");
+   	background-repeat:no-repeat;
+
+    height:1.4em!important;
+    white-space: nowrap!important;
+    overflow: hidden!important;
+    text-overflow: ellipsis!important;
+    -o-text-overflow: ellipsis!important;
+    -ms-text-overflow: ellipsis!important;
+}
+
+
+#listViewClientLists .Coupon
+{
+    float:left;
+    font-size:14px;
+    margin-bottom:3px;
+    background-image:url("../images/coupon17x17.png");
+   	background-repeat:no-repeat;
+    overflow:hidden;   
+    height:1.3em!important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+
+}
+.MoreOffer
+{
+ /*   margin-left:10px;
+    padding:3px;
+    color:white;
+    border-radius: 5px;
+    background-color: #f47721;
+    font-size:12px;*/
+    padding-left:3px;
+}
+
+.footer a
+{
+    border-left:0px!important;
+}
+
+/*Client Detail Page*/
+#clientDetailPage .imageContent
+{
+    position: relative;
+    float:left;
+    padding-right: 10px;
+    padding-bottom:10px;
+    width:110px;
+    height:110px;
+}
+
+#clientDetailPage .clientImage
+{
+    float:left;
+    width:100px;
+    height:100px;
+    margin: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border: 3px solid gray;
+}
+
+#clientDetailPage .stackone 
+{
+    -webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    -moz-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+#clientDetailPage .stacktwo{
+    -webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    -moz-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+     
+    -webkit-transform: rotate(-5deg);
+    -moz-transform: rotate(-5deg);
+    -o-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    transform: rotate(-5deg);
+}
+
+#clientDetailPage .stackthree{
+    -webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    -moz-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+     
+    -webkit-transform: rotate(-10deg);
+    -moz-transform: rotate(-10deg);
+    -o-transform: rotate(-10deg);
+    -ms-transform: rotate(-10deg);
+    transform: rotate(-10deg);
+}
+
+#clientDetailPage .businessContent
+{
+    height:120px;
+}
+
+#clientDetailPage .businessContent .ui-btn
+{
+    padding: 1px 0px 1px 30px;
+    font-size:12px;
+    text-align:left;
+    border:0px;
+    margin:1px 0px 3px 0px!important;
+    background-color:transparent!important;
+}
+
+#clientDetailPage .businessName
+{
+    font-size:16px;
+    font-weight:bold;
+    line-height: 18px;
+    padding-bottom:6px;
+}
+
+#clientDetailPage .businessContent a
+{
+    font-weight:normal!important
+}
+#clientDetailPage .address
+{
+    font-size:11px;
+    padding: 0px 0px 8px 0px;
+}
+#clientDetailPage .businessPhone
+{
+    font-size:10px;
+    padding: 0px 0px 8px 0px;
+}
+
+#socialView li
+{
+    border-style:none!important;
+}
+#clientDetailPage .addRemoveFavorite
+{
+    font-size:10px;
+    padding: 0px 0px 8px 0px;
+}
+#clientDetailPage .havePoints
+{
+    float:left;
+    width:100%;
+    margin:10px 0px 20px 0px;
+}
+#clientDetailPage .havePoints a:link,#clientDetailPage .havePoints a:visited ,#clientDetailPage .havePoints a:active 
+{
+   color:black;
+   text-decoration: none;
+
+}
+
+.facebookSignin
+{
+    border-radius: 5px;
+    background-image:url("../images/FB-logo.png")!important;
+    height:50px;
+   	background-repeat:no-repeat!important;
+    padding-left:48px;
+    margin:6px 0px 2px 0px;
+}
+.facebookButton
+{
+    border-radius: 0px 5px 5px 0px;
+    padding-top:15px;
+    height:35px;
+    text-align:center;
+    background:blue!important;
+    color:white;
+    font-size:16px;
+    cursor: pointer;
+}
+.loginOr
+{
+    text-align:center;
+    margin:10px 0px 10px 0px;
+}
+    #clientDetailPage .havePoints a
+    {
+           font-size:16px;
+    }
+.socialButton
+{
+    margin: 1px 15px 1px 15px;
+}
+
+.havePoints .youHave
+{
+    float:left;
+    font-weight:bold;
+    vertical-align:middle;
+    margin:26px 8px 0px 0px;
+}
+
+.havePoints div.CountDisplay1
+{
+    border-radius: 50%;
+    behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+
+    width: 60px;
+    height: 38px;
+    padding: 22px 0px 0px 0px;
+
+    background: #fff;
+    border: 1px solid #666;
+    color: #666;
+    text-align: center;
+    font-size:10px;
+    vertical-align: middle;
+    float:left;
+    white-space: nowrap;
+}
+
+
+.havePoints .CheckIn
+{
+    float:right;
+    margin:0px 0px 0px 0px;
+}
+
+.havePoints .CheckIn input
+{
+    float:right;
+    border-radius: 10px;
+}
+
+#clientDetailPage div.CountDisplay {
+    width: 60px;
+    float:left;     
+    text-align:center;
+
+}
+
+#clientDetailPage .ProgramName
+{
+    margin-right:20px;
+    text-align:center;
+}
+
+
+#clientDetailPage .ui-btn-icon-right::after
+{
+    right: -100px;
+}
+
+#clientDetailPage a
+{
+    vertical-align:middle;
+}
+#loyaltyListView li a
+{
+    padding:1em 0px 1em 0.2em!important;
+}
+#loyaltyListView li
+{
+    padding-left:0.2em!important;
+}
+
+#socialView {
+-webkit-box-shadow: none!important;
+-moz-box-shadow: none!important;
+box-shadow: none!important; 
+}
+
+#socialView > .ui-li-divider
+{
+    padding:0.5em 0em 0.5em 0em;
+}
+
+#loyaltyListView.ui-shadow
+{
+    -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, .15);
+    -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, .15);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+}
+
+#loyaltyListView
+{
+    -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, .15);
+    -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, .15);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+    box-shadow:0px 0px 0px rgba(0,0,0,0.15)
+}
+
+#loyaltyListView a
+{
+    background-color:transparent!important;
+    border-left-style:none!important;
+    border-right-style:none!important;
+}
+
+#loyaltyListView .ui-page-theme-a,#loyaltyListView .ui-btn
+{
+    background-color:transparent!important;
+}
+
+    #loyaltyListView a > div.inActive 
+    {
+        color:grey;
+    }
+    #loyaltyListView a > div.active 
+    {
+        color:black;
+    }
+    #loyaltyListView .ProgramName
+    {
+        font-weight:normal!important;
+        word-wrap:break-word!important;
+        white-space: normal!important;
+        text-align:left;
+        margin-left:70px;
+    }
+
+#loyaltyCollapse .ui-btn
+{
+    padding: 2px;
+    font-size:12px;
+    text-align:left;
+}
+
+.RedeemLoyalty
+{
+    text-align:center;
+    padding:3px;
+    border-radius:5px;
+    border:1px solid #1F1F1F;
+    color: #FFF;
+    background-color: #F47741;
+    clear:both;
+    margin:25px 0px 10px 0px;
+}
+
+
+.CouponSection a:visited
+{
+    color: #333!important;
+}
+.CouponSection a
+{
+    color: #333!important;
+}
+
+.coupon_head
+{
+    margin:10px 0px 5px 0px;
+}
+.CouponSection
+{
+    margin-top: 0px;
+    display: block;
+    padding: 1px 1px 1px 1px;
+    border: 0px solid #ABABAB;
+    font-size: 10px;
+    background-color: #FFF;
+    border-radius: 8px;
+}
+
+.OfferContent
+{
+    clear:both;
+    background-color: #f2f0e9; 
+    border-style:dashed; 
+    border-width:1px;
+    border-color:grey;
+    text-align: center;
+    position:relative;
+    margin-bottom:1em;
+    width:100%;
+    float:left;
+}
+
+.OfferContent .OfferName
+{
+    font-size:20px;
+    font-weight:bold;
+}
+.OfferContent .OfferDescription
+{
+    font-size:14px;
+    font-weight:normal!important;
+}
+.OfferContent .ExpiresDate
+{
+    margin:3px 0px 5px 10px;
+    font-size:12px;
+    float:left;
+    font-weight:normal!important;
+}
+.OfferContent .OfferMoreDescription
+{
+    font-size:12px;
+    font-weight:normal!important;
+}
+
+.OfferAction
+{
+    padding:3px;
+    float:right;
+    border:1px solid red;
+    margin:3px 10px 5px 0px;
+    border-radius:5px;
+    border:1px solid #1F1F1F;
+    color: #FFF;
+    background-color: #F47741;
+}
+
+.redeemCode .message
+{
+    font-size: 14px;
+}
+
+.Inactive
+{
+    background-color: grey!important;
+}
+
+.content_section {
+    margin: 10px 0px 10px 0px;
+    display: block;
+    padding: 5px;
+    border: 1px solid #ABABAB;
+    font-size: 12px;
+    background-color: #FFF;
+    border-radius: 8px;
+    clear:both;
+}
+    .content_section .display-label
+    {
+        clear:both;
+        float: left;
+        width:100px;
+    }
+    .content_section .display-field
+    {
+        margin-left:100px;
+        min-height:18px;
+        white-space: pre-line;
+    }
+
+.ui-icon-location:after {
+background-image: url("../images/Map22x22.png");
+}
+.ui-icon-phone:after {
+background-image: url("../images/Phone22x22.png");
+}
+.ui-icon-addFavorite:after {
+background-image: url("../images/addFav.png");
+}
+.ui-icon-removeFavorite:after {
+background-image: url("../images/RemoveFav.png");
+}
+.location .ui-btn-icon-left:after,.phone .ui-btn-icon-left:after,.addFavorite .ui-btn-icon-left:after
+{
+    clear:both;
+    background-color: transparent;
+}
+
+button
+{
+    border-radius: 10px;
+}
+
+#offerDetailPage .content
+{
+    clear:both;
+}
+
+label.error {
+float: left;
+color: red;
+padding-top: .5em;
+vertical-align: top;
+font-weight:bold
+}
+
+.ui-header
+{
+    background-color: #f47721;
+}
+.ui-content
+{
+    height: 100%;
+}
+.ui-listview > .ui-li-static
+{
+    white-space:normal;
+}
+
+
+.ui-btn-hover-a .ui-icon-custom ,.ui-btn-active .ui-icon{
+    background:  url(images/Adr36x36.png)     50% 50% no-repeat!important;
+    background-size: 26px 22px!important;
+}
+#listViewClientLists .ui-btn
+{
+    padding:0.4em 0.2em 0.3em 0.2em;
+}
+#listViewClientLists .ui-btn-icon-right::after
+{
+    right: -100px;
+}
+.scroll1 {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    position: absolute;
+    top: 84px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+#slider1_container
+{
+    position: relative; 
+    top: 0px; 
+    left: 0px; 
+    width: 500px; 
+    height: 500px; 
+    overflow: hidden;
+
+}
+
+#slider1_container
+{
+  background: -webkit-linear-gradient(left, LightBlue , blue); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, LightBlue, blue); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, LightBlue, blue); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, LightBlue , blue); /* Standard syntax */
+}
+#listViewClientLists
+{
+    height:100%;
+}
+#listViewClientLists .ui-content,#clientDetailPage .ui-content
+{
+    padding: 6px 1px 0px 5px;
+}
+
+
+#clientImageSliderPage .ui-content
+{
+    padding: 0px;
+}
+
+.ui-footer .ui-btn-icon-top:after
+{
+    top:4px;
+    margin-left:-14px;
+}
+
+.ui-footer li .ui-btn
+{
+    font-size:10px;
+    padding-top:30px;
+    padding-bottom: 4px;
+    color:#808080;
+}
+
+.ui-footer a:hover {
+    background-color: #f6f6f6!important;
+}
+
+.ui-footer li .ui-btn:visited
+{
+    font-size:10px;
+    padding-top:30px;
+    padding-bottom: 4px;
+    color:#808080;
+}
+
+.ui-footer li.active .ui-btn
+{
+    font-size:10px;
+    padding-top:30px;
+    padding-bottom: 4px;
+    color:#f47721;
+}
+
+.ui-footer li.active .ui-btn:visited
+{
+    font-size:10px;
+    padding-top:30px;
+    padding-bottom: 4px;
+    color:#f47721;
+}
+
+.ui-footer li.active .ui-icon-home:after
+{
+    background-image:url("../images/mobilepon-icons-orange-nearby-arrow.jpg");
+    background-color:transparent;
+    width:27px;
+    height:27px;
+}
+.ui-footer li .ui-icon-home:after
+{
+    background-image:url("../images/mobilepon-icons-grey-nearby-arrow.jpg");
+    background-color:transparent;
+    width:27px;
+    height:27px;
+}
+
+.ui-footer li.active .ui-icon-camera:after
+{
+    background-image:url("../images/mobilepon-icons-orange-code.jpg");
+    background-color:transparent;
+    width:27px;
+    height:27px;
+}
+.ui-footer li .ui-icon-camera:after
+{
+    background-image:url("../images/mobilepon-icons-grey-code.jpg");
+    background-color:transparent;
+    width:27px;
+    height:27px;
+}
+
+
+.ui-footer li.active .ui-icon-heart:after
+{
+    background-image:url("../images/mobilepon-icons-orange-heart.jpg");
+    background-color:transparent;
+    width:27px;
+    height:27px;
+}
+.ui-footer li .ui-icon-heart:after
+{
+    background-image:url("../images/mobilepon-icons-grey-heart.jpg");
+    background-color:transparent;
+    width:27px;
+    height:27px;
+}
+
+
+.ui-footer li.active .ui-icon-user:after
+{
+    background-image:url("../images/mobilepon-icons-orange-account.jpg");
+    background-color:transparent;
+    width:27px;
+    height:27px;
+}
+.ui-footer li .ui-icon-user:after
+{
+    background-image:url("../images/mobilepon-icons-grey-account.jpg");
+    background-color:transparent;
+    width:27px;
+    height:27px;
+}
+
+
+.visitHistory
+{
+    font-size: 10px;
+}
+
+ .ui-dialog .ui-state-error { padding: .3em; }
+.ui-dialog
+{
+    background:white!important;
+}
+.ui-widget
+{
+    font-size: 0.8em!important;
+}
+.ui-mobile label, div.ui-controlgroup-label
+{
+    font-size:12px!important;
+}
+
+label.error{
+    color:red;
+    	display: inline;
+        float:none;
+}
+
+.TermsPrivacy a
+{
+    font-weight: normal!important;
+}
+
+.TermsPrivacy
+{
+    margin-top:15px;
+    clear:both;
+    text-align:center;
+}
+
+.CustomerGender select
+{
+    display:block!important;
+}
+.CustomerGender span
+{
+    display:none!important;
+}
+
+.ImageSlide
+{
+    margin: -10px -10px -10px -10px;
+}

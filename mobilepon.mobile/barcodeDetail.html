@@ -1,0 +1,36 @@
+﻿<div id="barcodeDetailPage" data-role="page" data-theme="a">
+    <div class="extenalPageContent">
+        <script id="tplCouponDetail" type="text/x-handlebars-template">
+                        <div><img alt="" src="{{ImageFileUrl}}" class="offerImage" /></div>
+                        <div><img alt="" src="{{BarcodeImageUrl}}" class="barcodeImage" /></div>
+                        <div class="content">
+                            <div>{{OfferName}}</div>
+                            <div>{{OfferDescription}}</div>
+                            <div>{{ExtraDescription1}}</div>
+                        </div>
+        </script>
+        <script id="tplLoyaltyDetail" type="text/x-handlebars-template">
+                        <div><img alt="" src="{{ImageFileUrl}}" class="offerImage" /></div>
+                        <div><img alt="" src="{{BarcodeImageUrl}}" class="offerImage" /></div>
+                        <div class="content">
+                            <div>{{OfferName}}</div>
+                            <div>{{PointsNeed}} Point is needed</div>
+                            <div>{{OfferDescription}}</div>
+                        </div>
+        </script>
+        <script src="js/barcodeDetail.js"></script>
+    </div>
+
+    <script type="text/javascript">
+        ApplyMasterPage("#barcodeDetailPage");
+        $("#barcodeDetailPage").on('pageshow', function () {
+            var g_BarcodeDetail = new BarcodeDetail("#barcodeDetailPage div.sharedBodyPlaceHolder");
+            var barcodeID = getUrlVars()["barcodeID"];
+            if (barcodeID != undefined)
+                g_BarcodeDetail.DisplayBarcodeByCodeID(getUrlVars()["barcodeID"])
+            else
+                g_BarcodeDetail.ScanBarcode();
+            LoadMasterPage();
+        })
+    </script>
+</div>
